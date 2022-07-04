@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: #f2f2f2;
+    }
+    form{
+      width: 98%;
+      display: flex;
+    }
+    input{
+      width: 100%;
+      border: none;
+      font-size: 20px;
+    }
+    input:focus{
+      border: 2px solid skyblue;
+    }
+    ul{
+      width: 98%;
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+    li{
+      margin: 5px;
+      padding: 5px;
+      color: #00b4cc;
+      font-size: 20px;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <form >
+    <input type="text">
+    <button>发送</button>
+  </form>
+  <ul></ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket =new io();
+    const form = document.querySelector('form')
+    const input = document.querySelector('input')
+    const ul = document.querySelector('ul')
+    form.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      if(input.value){
+        socket.emit('chat message',input.value)
+        input.value = ''
+      }
+
+    })
+    socket.on('chat message',(res) => {
+      console.log(res);
+      const li = document.createElement('li')
+      li.innerHTML = res;
+      ul.appendChild(li);
+    })
+  </script>
+</body>
+</html>
