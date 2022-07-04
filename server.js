@@ -8,7 +8,7 @@ app.get('/',(req,res)=>{
 })
 
 io.on('connection',socket => {
-  console.log('有一个人进入了聊天室')
+  console.log(socket.handshake.query.username+'进入了聊天室',socket.handshake.query.username)
   socket.on('chat message',msg=>{
     console.log(msg)
     io.emit('chat message',msg)

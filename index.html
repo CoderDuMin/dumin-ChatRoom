@@ -45,7 +45,8 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    const socket =new io();
+    let username = prompt();
+    const socket =new io({query:{username:username}});
     const form = document.querySelector('form')
     const input = document.querySelector('input')
     const ul = document.querySelector('ul')
